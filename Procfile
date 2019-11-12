@@ -1,0 +1,1 @@
+web: python fight_bot.py

@@ -1,0 +1,13 @@
+{
+  "name": "Fight Bot",
+  "description": "",
+  "image": "heroku/python",
+  "repository": "https://github.com/wjford/fight-bot",
+  "keywords": ["python", "discord" ],
+  "env": {
+    "FIGHTBOT_TOKEN": {
+      "description": "Discord bot token",
+      "required": true
+    }
+  }
+}
