@@ -1,1 +1,1 @@
-web: python fight_bot.py
+worker: python fight_bot.py
