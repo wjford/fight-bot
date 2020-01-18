@@ -35,7 +35,6 @@ const handleCommand = async (
 };
 
 const MessageHandler = (prefix: string) => (message: Message): void => {
-  console.log(message.content);
   if (!message.content.startsWith(prefix) || message.author.bot) {
     return;
   }
