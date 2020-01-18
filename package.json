@@ -15,12 +15,15 @@
     "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
   },
   "dependencies": {
+    "axios": "^0.19.1",
+    "cheerio": "^1.0.0-rc.3",
     "cross-env": "^6.0.3",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
     "env-cmd": "^10.0.1"
   },
   "devDependencies": {
+    "@types/cheerio": "^0.22.15",
     "@types/node": "^13.1.8",
     "@typescript-eslint/eslint-plugin": "^2.16.0",
     "@typescript-eslint/parser": "^2.16.0",
@@ -29,11 +32,5 @@
     "eslint-config-prettier": "^6.9.0",
     "nodemon": "^2.0.2",
     "typescript": "^3.7.5"
-  },
-  "nodemonConfig": {
-    "ignore": [
-      "dist/*",
-      "package.json"
-    ]
   }
 }

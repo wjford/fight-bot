@@ -5,9 +5,13 @@
   "repository": "https://github.com/wjford/fight-bot",
   "keywords": ["node", "discord" ],
   "env": {
-    "FIGHTBOT_TOKEN": {
+    "DISCORD_TOKEN": {
       "description": "Discord bot token",
       "required": true
+    },
+    "PREFIX": {
+      "description": "Command prefix",
+      "value": "$"
     }
   }
 }
