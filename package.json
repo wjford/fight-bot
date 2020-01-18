@@ -32,5 +32,8 @@
     "eslint-config-prettier": "^6.9.0",
     "nodemon": "^2.0.2",
     "typescript": "^3.7.5"
+  },
+  "engines": {
+    "node": ">=12"
   }
 }
