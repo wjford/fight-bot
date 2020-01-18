@@ -1,0 +1,36 @@
+{
+  "name": "fight-bot",
+  "version": "0.0.1",
+  "description": "Discord Bot for parsing UFC Events",
+  "main": "app.js",
+  "author": "William Ford <me@wford.dev>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "build": "tsc",
+    "dev": "concurrently --kill-others-on-fail -n \"TypeScript,Node\" -c \"cyan,green\" \"yarn run watch\" \"yarn run nodemon\"",
+    "start": "npx env-cmd ./dist/app.js",
+    "nodemon": "npx env-cmd nodemon --inspect ./dist/app.js",
+    "watch": "tsc -w",
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
+  },
+  "dependencies": {
+    "axios": "^0.19.1",
+    "cheerio": "^1.0.0-rc.3",
+    "cross-env": "^6.0.3",
+    "discord.js": "^11.5.1",
+    "dotenv": "^8.2.0",
+    "env-cmd": "^10.0.1"
+  },
+  "devDependencies": {
+    "@types/cheerio": "^0.22.15",
+    "@types/node": "^13.1.8",
+    "@typescript-eslint/eslint-plugin": "^2.16.0",
+    "@typescript-eslint/parser": "^2.16.0",
+    "concurrently": "^5.0.2",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.9.0",
+    "nodemon": "^2.0.2",
+    "typescript": "^3.7.5"
+  }
+}

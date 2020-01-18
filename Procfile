@@ -1,1 +1,1 @@
-worker: python fight_bot.py
+worker: node dist/app.js

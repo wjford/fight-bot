@@ -1,13 +1,17 @@
 {
   "name": "Fight Bot",
   "description": "",
-  "image": "heroku/python",
+  "image": "heroku/nodejs",
   "repository": "https://github.com/wjford/fight-bot",
-  "keywords": ["python", "discord" ],
+  "keywords": ["node", "discord" ],
   "env": {
-    "FIGHTBOT_TOKEN": {
+    "DISCORD_TOKEN": {
       "description": "Discord bot token",
       "required": true
+    },
+    "PREFIX": {
+      "description": "Command prefix",
+      "value": "$"
     }
   }
 }
