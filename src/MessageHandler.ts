@@ -1,10 +1,29 @@
-import { Message } from 'discord.js';
-import { parseFights } from './services/FightParser';
-import { fetchFights } from './services/FightService';
+import { Message, RichEmbed } from 'discord.js';
+import { Event, parseEvent, parseEvents } from './services/FightParser';
+import { fetchData, fetchEvents } from './services/FightService';
+
+const buildFightEmbed = (event: Event, url: string): RichEmbed => {
+  const embed = new RichEmbed();
+
+  embed.setTitle(event.title);
+  embed.setURL(url);
+  embed.setDescription(`${event.subtitle}\n${event.date}`);
+  embed.setThumbnail(event.imgUrl);
+
+  event.fights.forEach(fight => {
+    embed.addField(
+      fight.weightClass,
+      `${fight.redCorner.rank} ${fight.redCorner.name}\nvs.\n${fight.blueCorner.rank} ${fight.blueCorner.name}`,
+      true
+    );
+  });
+
+  return embed;
+};
 
 const getFightLinks = async (): Promise<string[]> => {
-  const eventHtml = await fetchFights();
-  const links = parseFights(eventHtml);
+  const eventHtml = await fetchEvents();
+  const links = parseEvents(eventHtml);
   return links;
 };
 
@@ -17,7 +36,11 @@ const handleFight = async (message: Message): Promise<void> => {
   const links = await getFightLinks();
   const [link] = links;
 
-  message.channel.send(link);
+  const eventHtml = await fetchData<string>(link);
+
+  const event: Event = parseEvent(eventHtml);
+
+  message.channel.send(buildFightEmbed(event, link));
 };
 
 const handleCommand = async (
