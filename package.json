@@ -20,7 +20,8 @@
     "cross-env": "^6.0.3",
     "discord.js": "^11.5.1",
     "dotenv": "^8.2.0",
-    "env-cmd": "^10.0.1"
+    "env-cmd": "^10.0.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/cheerio": "^0.22.15",
