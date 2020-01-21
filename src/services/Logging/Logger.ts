@@ -5,6 +5,14 @@ export default class Logger {
 
   public constructor(logger: Winston.Logger) {
     this.logger = logger;
+
+    this.info = this.info.bind(this);
+    this.warn = this.warn.bind(this);
+    this.error = this.error.bind(this);
+    this.debug = this.debug.bind(this);
+    this.http = this.http.bind(this);
+    this.verbose = this.verbose.bind(this);
+    this.silly = this.silly.bind(this);
   }
 
   public info(message: string): void {

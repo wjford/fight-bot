@@ -7,6 +7,9 @@ export default class DataService {
 
   public constructor(logger: Logger) {
     this.logger = logger;
+
+    this.fetchData = this.fetchData.bind(this);
+    this.fetchEvents = this.fetchEvents.bind(this);
   }
 
   public async fetchData<T>(url: string): Promise<T> {
