@@ -38,7 +38,8 @@
     "typescript": "^3.7.5"
   },
   "engines": {
-    "node": ">=12"
+    "node": ">=12",
+    "yarn": "^1.22.0"
   },
   "husky": {
     "hooks": {
