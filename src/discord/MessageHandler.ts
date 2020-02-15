@@ -1,7 +1,7 @@
 import { Message, RichEmbed } from 'discord.js';
-import UfcService from '../services/UfcService';
 import { Event, parseEvent, parseEvents } from '../services/FightParser';
 import Logger from '../services/Logging/Logger';
+import UfcService from '../services/UfcService';
 import Environment from '../util/Environment';
 
 export default class MessageHandler {
@@ -36,7 +36,7 @@ export default class MessageHandler {
 
     event.fights.forEach(fight => {
       embed.addField(
-        fight.weightClass,
+        fight.weightClass || 'Unknown',
         `${fight.redCorner.rank} ${fight.redCorner.name}\nvs.\n${fight.blueCorner.rank} ${fight.blueCorner.name}`,
         true
       );
