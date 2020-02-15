@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Logger from './Logging/Logger';
 
-export default class DataService {
+export default class UfcService {
   private readonly logger: Logger;
   private static readonly EVENTS_URL = 'https://www.ufc.com/events';
 
@@ -24,6 +24,6 @@ export default class DataService {
   }
 
   public async fetchEvents(): Promise<string> {
-    return this.fetchData<string>(DataService.EVENTS_URL);
+    return this.fetchData<string>(UfcService.EVENTS_URL);
   }
 }

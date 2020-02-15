@@ -1,5 +1,5 @@
 import { Message, RichEmbed } from 'discord.js';
-import DataService from '../services/DataService';
+import UfcService from '../services/UfcService';
 import { Event, parseEvent, parseEvents } from '../services/FightParser';
 import Logger from '../services/Logging/Logger';
 import Environment from '../util/Environment';
@@ -7,12 +7,12 @@ import Environment from '../util/Environment';
 export default class MessageHandler {
   private readonly prefix: string;
   private readonly logger: Logger;
-  private readonly dataService: DataService;
+  private readonly dataService: UfcService;
 
   public constructor(
     env: Environment,
     logger: Logger,
-    dataService: DataService
+    dataService: UfcService
   ) {
     this.prefix = env.PREFIX;
     this.logger = logger;

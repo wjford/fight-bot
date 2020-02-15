@@ -1,8 +1,8 @@
 import * as Discord from 'discord.js';
 import * as dotenv from 'dotenv';
 import MessageHandler from './discord/MessageHandler';
-import DataService from './services/DataService';
 import LoggerFactor from './services/Logging/LoggerFactory';
+import UfcService from './services/UfcService';
 import Environment from './util/Environment';
 
 dotenv.config();
@@ -10,7 +10,7 @@ dotenv.config();
 const env = new Environment(process.env);
 
 const logger = LoggerFactor.createLogger(env);
-const dataService = new DataService(logger);
+const dataService = new UfcService(logger);
 const messageHandler = new MessageHandler(env, logger, dataService);
 
 const client = new Discord.Client();
