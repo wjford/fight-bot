@@ -1,4 +1,4 @@
-import { Message, RichEmbed } from 'discord.js';
+import { Message, MessageEmbed } from 'discord.js';
 import { Event, parseEvent, parseEvents } from '../services/FightParser';
 import Logger from '../services/Logging/Logger';
 import UfcService from '../services/UfcService';
@@ -26,8 +26,8 @@ export default class MessageHandler {
     this.handleMessage = this.handleMessage.bind(this);
   }
 
-  private buildFightEmbed(event: Event, url: string): RichEmbed {
-    const embed = new RichEmbed();
+  private buildFightEmbed(event: Event, url: string): MessageEmbed {
+    const embed = new MessageEmbed();
 
     embed.setTitle(event.title);
     embed.setURL(url);
