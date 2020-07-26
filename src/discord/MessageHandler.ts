@@ -34,7 +34,7 @@ export default class MessageHandler {
     embed.setDescription(`${event.subtitle}\n${event.date}`);
     embed.setThumbnail(event.imgUrl);
 
-    event.fights.forEach(fight => {
+    event.fights.forEach((fight) => {
       embed.addField(
         fight.weightClass || 'Unknown',
         `${fight.redCorner.rank} ${fight.redCorner.name}\nvs.\n${fight.blueCorner.rank} ${fight.blueCorner.name}`,

@@ -49,32 +49,17 @@ export const parseEvent = (html: string): Event => {
   const $ = Cheerio.load(html);
 
   const fighters: string[] = $(fighterClass)
-    .map((_, el) =>
-      $(el)
-        .text()
-        .trim()
-        .replace(/\n/g, '')
-    )
+    .map((_, el) => $(el).text().trim().replace(/\n/g, ''))
     .get();
   const ranks: string[] = $(rankClass)
-    .map((_, el) =>
-      $(el)
-        .text()
-        .trim()
-        .replace(/\n/g, '')
-    )
+    .map((_, el) => $(el).text().trim().replace(/\n/g, ''))
     .get();
   const weightClasses: string[] = $(weightClass)
-    .map((_, el) =>
-      $(el)
-        .text()
-        .trim()
-        .replace(/\n/g, '')
-    )
+    .map((_, el) => $(el).text().trim().replace(/\n/g, ''))
     .get();
 
   let i = 0;
-  const fights: Fight[] = weightClasses.map(weightClass => {
+  const fights: Fight[] = weightClasses.map((weightClass) => {
     const fight: Fight = {
       weightClass,
       redCorner: {
@@ -92,20 +77,10 @@ export const parseEvent = (html: string): Event => {
     return fight;
   });
 
-  const title = $(titleClass)
-    .text()
-    .trim()
-    .replace(/\n/g, '');
-  const subtitle = $(subtitleClass)
-    .text()
-    .trim()
-    .replace(/\n/g, '');
-  const date = $(dateClass)
-    .text()
-    .trim();
-  const imgUrl = $(imgClass)
-    .attr('src')
-    .trim();
+  const title = $(titleClass).text().trim().replace(/\n/g, '');
+  const subtitle = $(subtitleClass).text().trim().replace(/\n/g, '');
+  const date = $(dateClass).text().trim();
+  const imgUrl = $(imgClass).attr('src').trim();
 
   return {
     title,
