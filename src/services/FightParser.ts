@@ -37,8 +37,8 @@ export const parseEvents = (html: string): string[] => {
 
   const links: string[] = [];
 
-  $('div.c-card-event--result__date').map((_index, $el) => {
-    const link = `${baseUrl}${$el.firstChild.attribs['href']}`;
+  $('div.c-card-event--result__logo').map((_index, $el) => {
+    const link = `${baseUrl}${$el.childNodes[1].attribs['href']}`;
     links.push(link);
   });
 
