@@ -37,8 +37,9 @@ export const parseEvents = (html: string): string[] => {
 
   const links: string[] = [];
 
-  $('div.c-card-event--result__logo').map((_index, $el) => {
-    const link = `${baseUrl}${$el.childNodes[1].attribs['href']}`;
+  $('.c-card-event--result__headline').map((_index, $el) => {
+    const child: Cheerio.Element = $el.firstChild as Cheerio.Element;
+    const link = `${baseUrl}${child.attribs['href']}`;
     links.push(link);
   });
 
