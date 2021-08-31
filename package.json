@@ -12,19 +12,23 @@
     "start": "npx env-cmd node ./dist/app.js",
     "nodemon": "npx env-cmd nodemon --inspect ./dist/app.js",
     "watch": "tsc -w",
-    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx"
+    "lint": "npx eslint . --ext .js,.jsx,.ts,.tsx",
+    "register": "npx env-cmd node ./dist/deploy-commands.js"
   },
   "dependencies": {
+    "@discordjs/builders": "^0.6.0",
+    "@discordjs/rest": "^0.1.0-canary.0",
     "axios": "^0.21.1",
     "cheerio": "^1.0.0-rc.10",
     "cross-env": "^7.0.3",
-    "discord.js": "^12.2.0",
+    "discord-api-types": "^0.22.0",
+    "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
     "env-cmd": "^10.1.0",
     "winston": "^3.3.3"
   },
   "devDependencies": {
-    "@types/node": "^16.7.8",
+    "@types/node": "^16.7.9",
     "@typescript-eslint/eslint-plugin": "^4.30.0",
     "@typescript-eslint/parser": "^4.30.0",
     "concurrently": "^6.2.1",
