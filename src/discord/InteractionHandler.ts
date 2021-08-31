@@ -1,20 +1,14 @@
-import { Message, MessageEmbed } from 'discord.js';
+import { CommandInteraction, Interaction, MessageEmbed } from 'discord.js';
 import { Event, parseEvent, parseEvents } from '../services/FightParser';
 import Logger from '../services/Logging/Logger';
 import UfcService from '../services/UfcService';
-import Environment from '../util/Environment';
 
-export default class MessageHandler {
+export default class InteractionHandler {
   private readonly prefix: string;
   private readonly logger: Logger;
   private readonly dataService: UfcService;
 
-  public constructor(
-    env: Environment,
-    logger: Logger,
-    dataService: UfcService
-  ) {
-    this.prefix = env.PREFIX;
+  public constructor(logger: Logger, dataService: UfcService) {
     this.logger = logger;
     this.dataService = dataService;
 
@@ -23,7 +17,7 @@ export default class MessageHandler {
     this.getFightLinks = this.getFightLinks.bind(this);
     this.handleFight = this.handleFight.bind(this);
     this.handleFights = this.handleFights.bind(this);
-    this.handleMessage = this.handleMessage.bind(this);
+    this.handleInteraction = this.handleInteraction.bind(this);
   }
 
   private buildFightEmbed(event: Event, url: string): MessageEmbed {
@@ -46,17 +40,17 @@ export default class MessageHandler {
   }
 
   private async handleCommand(
-    message: Message,
+    interaction: CommandInteraction,
     command: string
   ): Promise<void> {
-    this.logger.info(`Processing command - ${this.prefix}${command}`);
+    this.logger.info(`Processing command - ${command}`);
 
     switch (command) {
       case 'fight':
-        this.handleFight(message);
+        this.handleFight(interaction);
         break;
       case 'fights':
-        this.handleFights(message);
+        this.handleFights(interaction);
         break;
       default:
         this.logger.info(`Command not supported - ${command}`);
@@ -77,16 +71,16 @@ export default class MessageHandler {
     }
   }
 
-  private async handleFights(message: Message): Promise<void> {
+  private async handleFights(interaction: CommandInteraction): Promise<void> {
     const links = await this.getFightLinks();
-    message.channel.send(links.join('\n'));
+    interaction.reply(links.join('\n'));
   }
 
-  private async handleFight(message: Message): Promise<void> {
+  private async handleFight(interaction: CommandInteraction): Promise<void> {
     const links = await this.getFightLinks();
 
     if (links.length === 0) {
-      message.channel.send('Failed retriving event information from UFC');
+      interaction.channel.send('Failed retriving event information from UFC');
       return;
     }
 
@@ -96,17 +90,16 @@ export default class MessageHandler {
 
     const event: Event = parseEvent(eventHtml);
 
-    message.channel.send(this.buildFightEmbed(event, link));
+    await interaction.reply({ embeds: [this.buildFightEmbed(event, link)] });
   }
 
-  public handleMessage(message: Message): void {
-    if (!message.content.startsWith(this.prefix) || message.author.bot) {
+  public handleInteraction(interaction: Interaction): void {
+    if (!interaction.isCommand()) {
       return;
     }
 
-    const args = message.content.slice(this.prefix.length).split(' ');
-    const command = args.shift().toLowerCase();
+    const { commandName } = interaction;
 
-    this.handleCommand(message, command);
+    this.handleCommand(interaction, commandName);
   }
 }

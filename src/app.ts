@@ -1,6 +1,6 @@
 import * as Discord from 'discord.js';
 import * as dotenv from 'dotenv';
-import MessageHandler from './discord/MessageHandler';
+import InteractionHandler from './discord/InteractionHandler';
 import LoggerFactor from './services/Logging/LoggerFactory';
 import UfcService from './services/UfcService';
 import Environment from './util/Environment';
@@ -11,14 +11,16 @@ const env = new Environment(process.env);
 
 const logger = LoggerFactor.createLogger(env);
 const dataService = new UfcService(logger);
-const messageHandler = new MessageHandler(env, logger, dataService);
+const interactionHandler = new InteractionHandler(logger, dataService);
 
-const client = new Discord.Client();
+const intents = [Discord.Intents.FLAGS.GUILDS];
+
+const client = new Discord.Client({ intents });
 
 client.once('ready', () => {
   logger.info('Ready to accept commands');
 });
 
-client.on('message', messageHandler.handleMessage);
+client.on('interactionCreate', interactionHandler.handleInteraction);
 
 client.login(env.DISCORD_TOKEN);
