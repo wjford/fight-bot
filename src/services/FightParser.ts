@@ -46,6 +46,25 @@ export const parseEvents = (html: string): string[] => {
   return links;
 };
 
+const parseImage = ($: Cheerio.CheerioAPI): string => {
+  const style = $(imgClass).parent().attr('style');
+  const urlStart = style.indexOf('url(');
+
+  if (urlStart === -1) {
+    return '';
+  }
+
+  const imgUrl = style.substring(urlStart + 4);
+
+  const rightParen = imgUrl.indexOf(')');
+
+  if (rightParen === -1) {
+    return '';
+  }
+
+  return imgUrl.substring(0, rightParen);
+};
+
 export const parseEvent = (html: string): Event => {
   const $ = Cheerio.load(html);
 
@@ -81,21 +100,7 @@ export const parseEvent = (html: string): Event => {
   const title = $(titleClass).text().trim().replace(/\n/g, '');
   const subtitle = $(subtitleClass).text().trim().replace(/\n/g, '');
   const date = $(dateClass).text().trim();
-  const style = $(imgClass).parent().attr('style');
-  const urlStart = style.indexOf('url(');
-
-  let imgUrl = '';
-
-  if (urlStart > -1) {
-    imgUrl = style.substring(urlStart + 4);
-    const rightParen = imgUrl.indexOf(')');
-
-    if (rightParen > -1) {
-      imgUrl = imgUrl.substring(0, rightParen);
-    } else {
-      imgUrl = '';
-    }
-  }
+  const imgUrl = parseImage($);
 
   return {
     title,
