@@ -1,11 +1,9 @@
 import * as Discord from 'discord.js';
-import * as dotenv from 'dotenv';
+import 'dotenv/config';
 import InteractionHandler from './discord/InteractionHandler';
 import LoggerFactor from './services/Logging/LoggerFactory';
 import UfcService from './services/UfcService';
 import Environment from './util/Environment';
-
-dotenv.config();
 
 const env = new Environment(process.env);
 
