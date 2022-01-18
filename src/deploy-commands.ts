@@ -21,16 +21,10 @@ const rest = new REST({ version: '9' }).setToken(env.DISCORD_TOKEN);
 
 (async () => {
   try {
-    await rest.put(Routes.applicationCommands(env.CLIENT_ID), {
+    const route = Routes.applicationCommands(env.CLIENT_ID);
+    await rest.put(route, {
       body: commands,
     });
-
-    await rest.put(
-      Routes.applicationGuildCommands(env.CLIENT_ID, env.GUILD_ID),
-      {
-        body: commands,
-      }
-    );
 
     console.log('Successfully registered application commands.');
   } catch (error) {
