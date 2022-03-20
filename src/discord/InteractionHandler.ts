@@ -94,7 +94,15 @@ export default class InteractionHandler {
 
     let event: Event;
 
-    const cachedEvent = await this.cacheService.get(link);
+    let cachedEvent: string;
+
+    try {
+      cachedEvent = await this.cacheService.get(link);
+    } catch (error) {
+      cachedEvent = ''
+      this.cacheService.init();
+      this.logger.error(error?.message ?? 'Error retrieving cached value');
+    }
 
     if (cachedEvent) {
       this.logger.info(`Cache hit: ${link}`)
