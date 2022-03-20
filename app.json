@@ -9,10 +9,6 @@
       "description": "Discord bot token",
       "required": true
     },
-    "PREFIX": {
-      "description": "Command prefix",
-      "value": "$"
-    },
     "REDIS_URL": {
       "description": "Redis cache url",
       "required": true
