@@ -1,16 +1,22 @@
 import { CommandInteraction, Interaction, MessageEmbed } from 'discord.js';
+import { CacheService } from '../services/CacheService';
 import { Event, parseEvent, parseEvents } from '../services/FightParser';
 import Logger from '../services/Logging/Logger';
 import UfcService from '../services/UfcService';
 
 export default class InteractionHandler {
-  private readonly prefix: string;
   private readonly logger: Logger;
   private readonly dataService: UfcService;
+  private readonly cacheService: CacheService;
 
-  public constructor(logger: Logger, dataService: UfcService) {
+  public constructor(
+    logger: Logger,
+    dataService: UfcService,
+    cacheService: CacheService
+  ) {
     this.logger = logger;
     this.dataService = dataService;
+    this.cacheService = cacheService;
 
     this.buildFightEmbed = this.buildFightEmbed.bind(this);
     this.handleCommand = this.handleCommand.bind(this);
@@ -86,9 +92,19 @@ export default class InteractionHandler {
 
     const [link] = links;
 
-    const eventHtml = await this.dataService.fetchData<string>(link);
+    let event: Event;
 
-    const event: Event = parseEvent(eventHtml);
+    const cachedEvent = await this.cacheService.get(link);
+
+    if (cachedEvent) {
+      this.logger.info(`Cache hit: ${link}`)
+      event = JSON.parse(cachedEvent);
+    } else {
+      this.logger.info(`Cache miss: ${link}`)
+      const eventHtml = await this.dataService.fetchData<string>(link);
+      event = parseEvent(eventHtml);
+      this.cacheService.set(link, JSON.stringify(event));
+    }
 
     await interaction.reply({ embeds: [this.buildFightEmbed(event, link)] });
   }

@@ -5,6 +5,7 @@ export default class Environment {
   public readonly LOGGING_LEVEL: string;
   public readonly CLIENT_ID: string;
   public readonly GUILD_ID: string;
+  public readonly REDIS_URL: string;
 
   public constructor(env: NodeJS.ProcessEnv) {
     this.DISCORD_TOKEN = env.DISCORD_TOKEN || '';
@@ -13,5 +14,6 @@ export default class Environment {
     this.LOGGING_LEVEL = env.LOGGING_LEVEL || 'info';
     this.CLIENT_ID = env.CLIENT_ID || '';
     this.GUILD_ID = env.GUILD_ID || '';
+    this.REDIS_URL = env.REDIS_URL || '';
   }
 }
