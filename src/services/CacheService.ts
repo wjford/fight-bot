@@ -1,15 +1,23 @@
 import { RedisClientType } from '@node-redis/client';
 import redis = require('redis');
 import Environment from '../util/Environment';
+import Logger from './Logging/Logger';
 
 export class CacheService {
   private readonly client: RedisClientType;
+  private readonly logger: Logger;
 
-  constructor(env: Environment) {
+  constructor(env: Environment, logger: Logger) {
     this.client = redis.createClient({ url: env.REDIS_URL });
+    this.logger = logger;
   }
 
+  private handleError = (err: Error) => {
+    this.logger.error(err.message);
+  };
+
   public init = async () => {
+    this.client.on('error', this.handleError);
     await this.client.connect();
   };
 
