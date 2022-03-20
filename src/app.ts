@@ -9,13 +9,17 @@ import Environment from './util/Environment';
 const start = async () => {
   const env = new Environment(process.env);
 
-  const cacheService = new CacheService(env);
+  const logger = LoggerFactor.createLogger(env);
+  const cacheService = new CacheService(env, logger);
 
   await cacheService.init();
 
-  const logger = LoggerFactor.createLogger(env);
   const dataService = new UfcService(logger);
-  const interactionHandler = new InteractionHandler(logger, dataService, cacheService);
+  const interactionHandler = new InteractionHandler(
+    logger,
+    dataService,
+    cacheService
+  );
 
   const intents = [Discord.Intents.FLAGS.GUILDS];
 
@@ -28,5 +32,5 @@ const start = async () => {
   client.on('interactionCreate', interactionHandler.handleInteraction);
 
   client.login(env.DISCORD_TOKEN);
-}
+};
 start();
