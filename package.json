@@ -25,6 +25,7 @@
     "discord.js": "^13.6.0",
     "dotenv": "^16.0.0",
     "env-cmd": "^10.1.0",
+    "redis": "^4.0.4",
     "winston": "^3.6.0"
   },
   "devDependencies": {
