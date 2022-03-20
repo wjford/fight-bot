@@ -15,6 +15,7 @@ export class CacheService {
   }
 
   public get = async (key: string) => {
+    if (!this.client.isOpen)
     return this.client.get(key);
   }
 
