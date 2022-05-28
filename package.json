@@ -8,6 +8,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
+    "build-docker": "docker build . -t wjford/fight-bot",
     "dev": "concurrently --kill-others-on-fail -n \"TypeScript,Node\" -c \"cyan,green\" \"yarn run watch\" \"yarn run nodemon\"",
     "start": "npx env-cmd node ./dist/app.js",
     "nodemon": "npx env-cmd nodemon --inspect ./dist/app.js",
