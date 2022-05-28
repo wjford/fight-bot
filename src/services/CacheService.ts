@@ -1,7 +1,7 @@
-import { RedisClientType } from '@node-redis/client';
-import redis = require('redis');
+import { RedisClientType } from 'redis';
 import Environment from '../util/Environment';
 import Logger from './Logging/Logger';
+import redis = require('redis');
 
 export class CacheService {
   private readonly client: RedisClientType;
