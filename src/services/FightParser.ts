@@ -48,7 +48,7 @@ export const parseEvents = (html: string): string[] => {
 
 const parseImage = ($: Cheerio.CheerioAPI): string => {
   const style = $(imgClass).parent().attr('style');
-  const urlStart = style.indexOf('url(');
+  const urlStart = style?.indexOf('url(') ?? -1;
 
   if (urlStart === -1) {
     return '';
