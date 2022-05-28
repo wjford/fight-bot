@@ -47,22 +47,9 @@ export const parseEvents = (html: string): string[] => {
 };
 
 const parseImage = ($: Cheerio.CheerioAPI): string => {
-  const style = $(imgClass).parent().attr('style');
-  const urlStart = style?.indexOf('url(') ?? -1;
-
-  if (urlStart === -1) {
-    return '';
-  }
-
-  const imgUrl = style.substring(urlStart + 4);
-
-  const rightParen = imgUrl.indexOf(')');
-
-  if (rightParen === -1) {
-    return '';
-  }
-
-  return imgUrl.substring(0, rightParen);
+  const imgHero = $(imgClass);
+  const img = imgHero.find('img');
+  return img?.attr('src') ?? '';
 };
 
 export const parseEvent = (html: string): Event => {
