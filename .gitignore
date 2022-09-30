@@ -115,3 +115,9 @@ dist
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+
+# NPM Lock files
+package-lock.json
+
+# Local mac config files
+.DS_STORE
