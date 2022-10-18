@@ -8,7 +8,7 @@
   "private": true,
   "scripts": {
     "build": "tsc",
-    "dev": "concurrently --kill-others-on-fail -n \"TypeScript,Node\" -c \"cyan,green\" \"yarn run watch\" \"yarn run nodemon\"",
+    "dev": "concurrently --kill-others-on-fail -n \"TypeScript,Node\" -c \"cyan,green\" \"npm run watch\" \"npm run nodemon\"",
     "start": "npx env-cmd node ./dist/app.js",
     "nodemon": "npx env-cmd nodemon --inspect ./dist/app.js",
     "watch": "tsc -w",
@@ -39,8 +39,6 @@
     "typescript": "^4.8.4"
   },
   "engines": {
-    "node": ">=18.2",
-    "yarn": "^3.2.1"
-  },
-  "packageManager": "yarn@3.2.1"
+    "node": ">=18.2"
+  }
 }
