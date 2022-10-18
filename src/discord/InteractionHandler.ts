@@ -1,5 +1,4 @@
 import { CommandInteraction, Interaction, MessageEmbed } from 'discord.js';
-import { CacheService } from '../services/CacheService';
 import { Event, parseEvent, parseEvents } from '../services/FightParser';
 import Logger from '../services/Logging/Logger';
 import UfcService from '../services/UfcService';
@@ -7,16 +6,10 @@ import UfcService from '../services/UfcService';
 export default class InteractionHandler {
   private readonly logger: Logger;
   private readonly dataService: UfcService;
-  private readonly cacheService: CacheService;
 
-  public constructor(
-    logger: Logger,
-    dataService: UfcService,
-    cacheService: CacheService
-  ) {
+  public constructor(logger: Logger, dataService: UfcService) {
     this.logger = logger;
     this.dataService = dataService;
-    this.cacheService = cacheService;
 
     this.buildFightEmbed = this.buildFightEmbed.bind(this);
     this.handleCommand = this.handleCommand.bind(this);
@@ -92,27 +85,8 @@ export default class InteractionHandler {
 
     const [link] = links;
 
-    let event: Event;
-
-    let cachedEvent: string;
-
-    try {
-      cachedEvent = await this.cacheService.get(link);
-    } catch (error) {
-      cachedEvent = ''
-      this.cacheService.init();
-      this.logger.error(error?.message ?? 'Error retrieving cached value');
-    }
-
-    if (cachedEvent) {
-      this.logger.info(`Cache hit: ${link}`)
-      event = JSON.parse(cachedEvent);
-    } else {
-      this.logger.info(`Cache miss: ${link}`)
-      const eventHtml = await this.dataService.fetchData<string>(link);
-      event = parseEvent(eventHtml);
-      this.cacheService.set(link, JSON.stringify(event));
-    }
+    const eventHtml = await this.dataService.fetchData<string>(link);
+    const event = parseEvent(eventHtml);
 
     await interaction.reply({ embeds: [this.buildFightEmbed(event, link)] });
   }
