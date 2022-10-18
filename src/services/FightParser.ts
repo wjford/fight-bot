@@ -6,7 +6,7 @@ const titleClass = '.c-hero__headline-prefix';
 const subtitleClass = '.c-hero__headline.is-large-text';
 const dateClass = '.c-hero__headline-suffix';
 
-const weightClass = '.c-listing-fight__class';
+const weightClass = 'div.c-listing-fight__details > div.c-listing-fight__class';
 
 const fighterClass = '.c-listing-fight__corner-name';
 const rankClass = '.c-listing-fight__corner-rank';
@@ -68,7 +68,7 @@ export const parseEvent = (html: string): Event => {
   let i = 0;
   const fights: Fight[] = weightClasses.map((weightClass) => {
     const fight: Fight = {
-      weightClass,
+      weightClass: weightClass.replace(/ +/g, ' ').trim(),
       redCorner: {
         name: fighters[i],
         rank: ranks[i],
@@ -85,7 +85,7 @@ export const parseEvent = (html: string): Event => {
   });
 
   const title = $(titleClass).text().trim().replace(/\n/g, '');
-  const subtitle = $(subtitleClass).text().trim().replace(/\n/g, '');
+  const subtitle = $(subtitleClass).text().trim().replace(/\n/g, '').replace(/ +/g, ' ');
   const date = $(dateClass).text().trim();
   const imgUrl = parseImage($);
 

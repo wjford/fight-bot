@@ -8,10 +8,6 @@
     "DISCORD_TOKEN": {
       "description": "Discord bot token",
       "required": true
-    },
-    "REDIS_URL": {
-      "description": "Redis cache url",
-      "required": true
     }
   }
 }
