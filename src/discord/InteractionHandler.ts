@@ -108,6 +108,7 @@ export default class InteractionHandler {
     let event: Event = await this.getEvent(link);
     const now : Date = new Date(Date.now());
 
+    // If current fight is outdated, grab the next one
     if(eventToDate(this.logger, event) < now) {
       link = links.shift();
     }
@@ -148,8 +149,6 @@ export default class InteractionHandler {
     await interaction.reply({ embeds: [this.buildFightEmbed(event, link)] });
   }
 
-  // todo: figure out how to parse card
-  // todo: only allow this command in guilds
   private async handleFightEvent(interaction: CommandInteraction): Promise<void> {
     const channels: GuildChannelManager = interaction.guild.channels;
 
