@@ -19,7 +19,6 @@ import {
   SelectMenuInteraction,
   VoiceChannel
 } from 'discord.js';
-import { CacheService } from '../services/CacheService';
 import { Event, parseEvent, parseEvents } from '../services/FightParser';
 import Logger from '../services/Logging/Logger';
 import UfcService from '../services/UfcService';
