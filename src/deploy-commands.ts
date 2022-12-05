@@ -13,6 +13,9 @@ const commands = [
   new SlashCommandBuilder()
     .setName('fights')
     .setDescription('Replies with links to upcoming fights'),
+  new SlashCommandBuilder()
+    .setName('fight-event')
+    .setDescription('Creates a Discord Event for the upcoming fight'),
 ].map((command) => command.toJSON());
 
 const rest = new REST({ version: '9' }).setToken(env.DISCORD_TOKEN);
