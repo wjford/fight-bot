@@ -85,7 +85,11 @@ export const parseEvent = (html: string): Event => {
   });
 
   const title = $(titleClass).text().trim().replace(/\n/g, '');
-  const subtitle = $(subtitleClass).text().trim().replace(/\n/g, '').replace(/ +/g, ' ');
+  const subtitle = $(subtitleClass)
+    .text()
+    .trim()
+    .replace(/\n/g, '')
+    .replace(/ +/g, ' ');
   const date = $(dateClass).text().trim();
   const imgUrl = parseImage($);
 

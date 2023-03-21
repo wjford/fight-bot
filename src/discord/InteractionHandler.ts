@@ -94,10 +94,10 @@ export default class InteractionHandler {
     const links = await this.getFightLinks();
     let link = links.shift();
     const event: Event = await this.getEvent(link);
-    const now : Date = new Date(Date.now());
+    const now: Date = new Date(Date.now());
 
     // If current fight is outdated, grab the next one
-    if(eventToDate(this.logger, event) < now) {
+    if (eventToDate(this.logger, event) < now) {
       link = links.shift();
     }
 
@@ -137,14 +137,20 @@ export default class InteractionHandler {
     await interaction.reply({ embeds: [this.buildFightEmbed(event, link)] });
   }
 
-  private async handleFightEvent(interaction: CommandInteraction): Promise<void> {
+  private async handleFightEvent(
+    interaction: CommandInteraction
+  ): Promise<void> {
     const channels: GuildChannelManager = interaction.guild.channels;
 
     const msg: MessageActionRow = new MessageActionRow();
     const menu: MessageSelectMenu = new MessageSelectMenu();
-    menu.setCustomId("event-channel");
+    menu.setCustomId('event-channel');
     for (const [id, channel] of channels.cache.entries()) {
-      this.logger.debug(`id: ${id.toString()} name: ${channel.name} isVoice: ${channel.isVoice()}`);
+      this.logger.debug(
+        `id: ${id.toString()} name: ${
+          channel.name
+        } isVoice: ${channel.isVoice()}`
+      );
       if (channel.isVoice()) {
         menu.addOptions([
           {
@@ -155,26 +161,33 @@ export default class InteractionHandler {
       }
     }
 
-    msg.addComponents(menu)
+    msg.addComponents(menu);
 
     await interaction.reply({
-      content: "Please select the channel for the event",
-      components: [msg]
+      content: 'Please select the channel for the event',
+      components: [msg],
     });
   }
 
-  private async handleEventChannel(interaction: SelectMenuInteraction): Promise<void> {
+  private async handleEventChannel(
+    interaction: SelectMenuInteraction
+  ): Promise<void> {
     const link = await this.getFightLink();
     const event: Event = await this.getEvent(link);
 
     const channelId = interaction.values.pop();
     const re = /\s+/g;
-    const subtitle = event.subtitle.replace(re, " ");
+    const subtitle = event.subtitle.replace(re, ' ');
     const title = `${event.title}: ${subtitle}`;
-    let description = "";
+    let description = '';
     for (const fight of event.fights) {
       if (fight.redCorner.name && fight.blueCorner.name) {
-        description = description.concat(`${fight.blueCorner.name.replace(re, " ")} vs. ${fight.redCorner.name.replace(re, " ")}\n`);
+        description = description.concat(
+          `${fight.blueCorner.name.replace(
+            re,
+            ' '
+          )} vs. ${fight.redCorner.name.replace(re, ' ')}\n`
+        );
       }
     }
 
@@ -183,8 +196,8 @@ export default class InteractionHandler {
       description: description,
       scheduledStartTime: eventToDate(this.logger, event),
       channel: channelId,
-      entityType: "VOICE",
-      privacyLevel: "GUILD_ONLY",
+      entityType: 'VOICE',
+      privacyLevel: 'GUILD_ONLY',
     };
 
     interaction.guild.scheduledEvents.create(eventCreateOptions);
@@ -198,7 +211,6 @@ export default class InteractionHandler {
 
       this.handleCommand(interaction, commandName);
     } else if (interaction.isSelectMenu()) {
-
       this.handleSelectMenu(interaction, interaction.customId);
     } else {
       return;

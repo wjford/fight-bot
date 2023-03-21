@@ -11,10 +11,7 @@ const start = async () => {
   const logger = LoggerFactor.createLogger(env);
 
   const dataService = new UfcService(logger);
-  const interactionHandler = new InteractionHandler(
-    logger,
-    dataService
-  );
+  const interactionHandler = new InteractionHandler(logger, dataService);
 
   const intents = [Discord.Intents.FLAGS.GUILDS];
 
