@@ -1,23 +1,12 @@
 import {
   GuildChannelManager,
-  Collection,
   CommandInteraction,
-  DateResolvable,
-  GuildBasedChannel,
   GuildScheduledEventCreateOptions,
-  GuildScheduledEventEntityType,
-  GuildScheduledEventManager,
-  GuildVoiceChannelResolvable,
   Interaction,
   MessageEmbed,
   MessageActionRow,
-  MessageActionRowComponent,
   MessageSelectMenu,
-  MessageSelectOption,
-  MessageSelectOptionData,
-  PrivacyLevel,
   SelectMenuInteraction,
-  VoiceChannel
 } from 'discord.js';
 import { Event, parseEvent, parseEvents } from '../services/FightParser';
 import Logger from '../services/Logging/Logger';
@@ -102,9 +91,9 @@ export default class InteractionHandler {
   }
 
   private async getFightLink(): Promise<string> {
-    let links = await this.getFightLinks();
+    const links = await this.getFightLinks();
     let link = links.shift();
-    let event: Event = await this.getEvent(link);
+    const event: Event = await this.getEvent(link);
     const now : Date = new Date(Date.now());
 
     // If current fight is outdated, grab the next one
@@ -151,10 +140,10 @@ export default class InteractionHandler {
   private async handleFightEvent(interaction: CommandInteraction): Promise<void> {
     const channels: GuildChannelManager = interaction.guild.channels;
 
-    var msg: MessageActionRow = new MessageActionRow();
-    var menu: MessageSelectMenu = new MessageSelectMenu();
+    let msg: MessageActionRow = new MessageActionRow();
+    let menu: MessageSelectMenu = new MessageSelectMenu();
     menu.setCustomId("event-channel");
-    for (let [id, channel] of channels.cache.entries()) {
+    for (const [id, channel] of channels.cache.entries()) {
       this.logger.debug(`id: ${id.toString()} name: ${channel.name} isVoice: ${channel.isVoice()}`);
       if (channel.isVoice()) {
         menu.addOptions([
@@ -178,13 +167,13 @@ export default class InteractionHandler {
     const link = await this.getFightLink();
     const event: Event = await this.getEvent(link);
 
-    let channelId = interaction.values.pop();
-    let channel = await interaction.guild.channels.fetch(channelId);
-    let re = /\s+/g;
-    let subtitle = event.subtitle.replace(re, " ");
-    let title = `${event.title}: ${subtitle}`;
+    const channelId = interaction.values.pop();
+    const channel = await interaction.guild.channels.fetch(channelId)
+    const re = /\s+/g;
+    const subtitle = event.subtitle.replace(re, " ");
+    const title = `${event.title}: ${subtitle}`;
     let description = "";
-    for (let fight of event.fights) {
+    for (const fight of event.fights) {
       if (fight.redCorner.name && fight.blueCorner.name) {
         description = description.concat(`${fight.blueCorner.name.replace(re, " ")} vs. ${fight.redCorner.name.replace(re, " ")}\n`);
       }
@@ -201,10 +190,7 @@ export default class InteractionHandler {
 
     interaction.guild.scheduledEvents.create(eventCreateOptions);
 
-    await interaction.update({
-      content: `Created event: ${title}`,
-      components: []
-    });
+    await interaction.update(`Created event: ${title}`);
   }
 
   public handleInteraction(interaction: Interaction): void {
