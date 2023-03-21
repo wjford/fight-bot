@@ -140,8 +140,8 @@ export default class InteractionHandler {
   private async handleFightEvent(interaction: CommandInteraction): Promise<void> {
     const channels: GuildChannelManager = interaction.guild.channels;
 
-    let msg: MessageActionRow = new MessageActionRow();
-    let menu: MessageSelectMenu = new MessageSelectMenu();
+    const msg: MessageActionRow = new MessageActionRow();
+    const menu: MessageSelectMenu = new MessageSelectMenu();
     menu.setCustomId("event-channel");
     for (const [id, channel] of channels.cache.entries()) {
       this.logger.debug(`id: ${id.toString()} name: ${channel.name} isVoice: ${channel.isVoice()}`);
@@ -168,7 +168,6 @@ export default class InteractionHandler {
     const event: Event = await this.getEvent(link);
 
     const channelId = interaction.values.pop();
-    const channel = await interaction.guild.channels.fetch(channelId)
     const re = /\s+/g;
     const subtitle = event.subtitle.replace(re, " ");
     const title = `${event.title}: ${subtitle}`;
