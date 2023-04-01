@@ -44,7 +44,7 @@ export default class InteractionHandler {
     event.fights.forEach((fight) => {
       embed.addField(
         fight.weightClass || 'Unknown',
-        `${fight.redCorner.rank} ${fight.redCorner.name}\nvs.\n${fight.blueCorner.rank} ${fight.blueCorner.name}`,
+        `${fight.redCorner.rank} ${fight.redCorner.name}\n${fight.redCorner.odds}\nvs.\n${fight.blueCorner.rank} ${fight.blueCorner.name}\n${fight.blueCorner.odds}`,
         true
       );
     });
@@ -183,10 +183,7 @@ export default class InteractionHandler {
     for (const fight of event.fights) {
       if (fight.redCorner.name && fight.blueCorner.name) {
         description = description.concat(
-          `${fight.blueCorner.name.replace(
-            re,
-            ' '
-          )} vs. ${fight.redCorner.name.replace(re, ' ')}\n`
+          `${fight.blueCorner.name.replace(re, ' ')} vs. ${fight.redCorner.name.replace(re, ' ')}\n`
         );
       }
     }

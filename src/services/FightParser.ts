@@ -7,6 +7,7 @@ const subtitleClass = '.c-hero__headline.is-large-text';
 const dateClass = '.c-hero__headline-suffix';
 
 const weightClass = 'div.c-listing-fight__details > div.c-listing-fight__class';
+const oddsClass = '.c-listing-fight__odds';
 
 const fighterClass = '.c-listing-fight__corner-name';
 const rankClass = '.c-listing-fight__corner-rank';
@@ -16,6 +17,7 @@ const imgClass = '.c-hero__image';
 export interface FightCorner {
   name: string;
   rank: string;
+  odds: string;
 }
 
 export interface Fight {
@@ -64,6 +66,9 @@ export const parseEvent = (html: string): Event => {
   const weightClasses: string[] = $(weightClass)
     .map((_, el) => $(el).text().trim().replace(/\n/g, ''))
     .get();
+  const oddsClasses: string[] = $(oddsClass)
+    .map((_, el) => $(el).text().trim().replace(/\n/g, ''))
+    .get();
 
   let i = 0;
   const fights: Fight[] = weightClasses.map((weightClass) => {
@@ -72,10 +77,12 @@ export const parseEvent = (html: string): Event => {
       redCorner: {
         name: fighters[i],
         rank: ranks[i],
+        odds: oddsClasses[i],
       },
       blueCorner: {
         name: fighters[i + 1],
         rank: ranks[i + 1],
+        odds: oddsClasses[i + 1],
       },
     };
 
