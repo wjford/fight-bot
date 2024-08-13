@@ -18,17 +18,17 @@
   "dependencies": {
     "@discordjs/builders": "^0.13.0",
     "@discordjs/rest": "^0.4.1",
-    "axios": "^1.6.1",
-    "cheerio": "^1.0.0-rc.12",
+    "axios": "^1.7.4",
+    "cheerio": "1.0.0-rc.12",
     "cross-env": "^7.0.3",
     "discord-api-types": "^0.33.0",
     "discord.js": "^13.14.0",
-    "dotenv": "^16.3.1",
+    "dotenv": "^16.4.5",
     "env-cmd": "^10.1.0",
-    "winston": "^3.8.2"
+    "winston": "^3.14.1"
   },
   "devDependencies": {
-    "@types/node": "^18.15.5",
+    "@types/node": "^20.0.0",
     "@typescript-eslint/eslint-plugin": "^6.10.0",
     "@typescript-eslint/parser": "^6.10.0",
     "concurrently": "^8.2.2",
@@ -39,6 +39,6 @@
     "typescript": "^5.2.2"
   },
   "engines": {
-    "node": ">=18.2"
+    "node": ">=20"
   }
 }
