@@ -12,4 +12,4 @@ kill_timeout = 5
   auto_rollback = true
 
 [build]
-  builder = "heroku/buildpacks:24"
+  builder = "heroku/builder:24"
