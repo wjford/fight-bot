@@ -1,8 +1,8 @@
 # FightBot
 
-Discord bot for getting upcoming UFC events directly in your Discord
+FightBot was Discord bot for getting upcoming UFC events directly in your Discord.
 
-[Add to your Server](https://discord.com/api/oauth2/authorize?client_id=629036721635459092&permissions=125952&scope=bot%20applications.commands)
+This project is no longer maintained.
 
 ![Example](docs/example.jpg)
 
