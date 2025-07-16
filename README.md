@@ -1,6 +1,6 @@
 # FightBot
 
-FightBot was Discord bot for getting upcoming UFC events directly in your Discord.
+FightBot was a Discord bot for getting upcoming UFC events directly in your Discord.
 
 This project is no longer maintained.
 
